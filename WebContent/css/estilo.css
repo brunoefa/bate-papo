@@ -1,0 +1,72 @@
+body {
+  padding-top: 70px;
+}
+
+#usuario {
+  margin-bottom: 20px;
+  padding: 35px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.jumbotron.conversation {
+  padding: 20px; 10px;
+  position: absolute;
+  bottom: 82px;
+  top: 70px;
+  width: 1140px;
+  border-radius: 4px 4px 0px 0px;
+  -moz-border-radius: 4px 4px 0px 0px;
+  -webkit-border-radius: 4px 4px 0px 0px;
+  overflow: auto;
+}
+
+.form-signin {
+	padding: 0 200px;
+}
+
+.footer.conversation{
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+}
+
+.form-control.input-message {
+  width: 1040px;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.enviar-mensagem {
+  padding:10px;
+  width: 66px;
+}
+
+.box-div{
+  position: absolute;
+  bottom: 40px;
+  padding: 15px;
+  width: 1140px;
+  background-color:#dedede;
+  border-radius: 0px 0px 4px 4px;
+  -moz-border-radius: 0px 0px 4px 4px;
+  -webkit-border-radius: 0px 0px 4px 4px;
+}
+
+.alert {
+  display: inline-block;
+}
+
+.align-right {
+  float: right;
+}
+
+.align-right:after {
+  border: solid 1px red;
+}
+
+.alert-1 { color: #31708f; background-color: #d9edf7; border-color: #bce8f1; }
+.alert-2 { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
+.alert-3 { color: #8a6d3b; background-color: #fcf8e3; border-color: #faebcc; }
+.alert-4 { color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6; }
+.alert-5 { color: #0e0e0e; background-color: #ffffff; border-color: #0e0e0e; }
