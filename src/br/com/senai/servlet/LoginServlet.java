@@ -27,10 +27,30 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("usuario");
-		System.out.println("Nome digitado:" + usuario);
-		request.setAttribute("nomeUsuario", usuario);
+		String acao = request.getParameter("acao");
+		if ("login".equals(acao)) {
+			login(request, response);
+		} else if ("sair".equals(acao)) {
+			sair(request, response);
+		} else {
+			index(request, response);
+		}
+	}
+	
+	private void sair(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		rd.forward(request, response);
+	}
+
+	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		rd.forward(request, response);
+	}
+	
+	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String usuario = request.getParameter("usuario");
+		request.setAttribute("usuario", usuario);
+		RequestDispatcher rd = request.getRequestDispatcher("conversa.jsp");
 		rd.forward(request, response);
 	}
 }

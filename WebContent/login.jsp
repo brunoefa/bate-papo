@@ -4,11 +4,11 @@
 
     <div class="container">
       <div class="jumbotron">
-        <form class="form-signin" method="post" action="login">
+        <form class="form-signin" method="get" action="login">
           <label for="usuario" class="sr-only">Usuário</label>
+          <input type="hidden" name="acao" value="login">
           <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Informe um usuário" required autofocus>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar conversa</button>
-          ${nomeUsuario}
         </form>
       </div>
     </div> <!-- /container -->
