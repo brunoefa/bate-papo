@@ -15,7 +15,7 @@
           </button>
           <a class="navbar-brand" href="#">Bate Papo da Uol 2.0</a>
           <a class="navbar-logout" href="login?acao=sair">Sair</a>
-          <span class="navbar-user">${usuario}</span>
+          <span class="navbar-user">${usuario.login}</span>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 

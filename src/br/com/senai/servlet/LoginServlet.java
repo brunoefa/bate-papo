@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.senai.dao.UsuarioDao;
+import br.com.senai.model.Usuario;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -38,6 +41,13 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	private void sair(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		
+		UsuarioDao dao = new UsuarioDao();
+		dao.deletar(usuario.getLogin());
+		
+		request.getSession().invalidate();
+		
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
@@ -48,8 +58,15 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("usuario");
-		request.setAttribute("usuario", usuario);
+		String login = request.getParameter("login");
+		
+		Usuario usuario = new Usuario();
+		usuario.setLogin(login);
+		
+		UsuarioDao dao = new UsuarioDao();
+		dao.salvar(usuario);
+		
+		request.getSession().setAttribute("usuario", usuario);
 		RequestDispatcher rd = request.getRequestDispatcher("conversa.jsp");
 		rd.forward(request, response);
 	}

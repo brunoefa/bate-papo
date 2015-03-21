@@ -13,7 +13,8 @@ public class ConnectionFactory {
 			System.out.println("ClassNotFoundException: " + e.getStackTrace());
 			
 		} try {
-			return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/pesquisaeleitoral","root","");
+//			return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/batepapo","root","");
+			return DriverManager.getConnection("jdbc:mysql://brunoefa.com:3306/brunoefa_batepapo","brunoefa_user","noite@123");
 			
 		} catch (SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
