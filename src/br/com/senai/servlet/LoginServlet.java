@@ -53,7 +53,12 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		String destino = "login.jsp";
+		if (usuario != null) {
+			destino = "logout.jsp";
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(destino);
 		rd.forward(request, response);
 	}
 	

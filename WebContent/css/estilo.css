@@ -86,3 +86,10 @@ body {
 .alert-3 { color: #8a6d3b; background-color: #fcf8e3; border-color: #faebcc; }
 .alert-4 { color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6; }
 .alert-5 { color: #0e0e0e; background-color: #ffffff; border-color: #0e0e0e; }
+
+.usuario-logado{
+  text-align: center;
+  font-size: 40px;
+  color: #696969;
+  padding-bottom: 20px;
+}
