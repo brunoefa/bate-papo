@@ -28,10 +28,10 @@
         <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
       </div>
       <div class="box-div">
-        <form class="form-inline">
+        <form class="form-inline" action="conversa" method="post">
           <div class="form-group">
             <input type="text" class="form-control input-message" id="mensagem" name="mensagem" autofocus>
-            <input type="hidden" class="form-control" id="usuario" name="usuario">
+            <input type="hidden" class="form-control" name="acao" value="salvar">
           </div>
           <button type="submit" class="btn btn-primary enviar-mensagem"> <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>
         </form>
