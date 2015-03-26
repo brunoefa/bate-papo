@@ -45,7 +45,7 @@ public class ConversaDao {
 				c.setId(rs.getInt("id"));
 				c.setUsuario(rs.getString("usuario"));
 				c.setMensagem(rs.getString("mensagem"));
-//				c.setDataHora(rs.getDate("datahora"));
+				c.setDataHora(rs.getTimestamp("datahora"));
 				
 				listaConversa.add(c);
 			}
