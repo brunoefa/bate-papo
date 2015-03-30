@@ -43,6 +43,7 @@ public class ConversaServlet extends HttpServlet {
 	}
 	
 	private void listarMensagens(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LoginServlet.estaLogado(request, response);
 		List<Conversa> listaConversa = new ArrayList<Conversa>();
 		
 		ConversaDao dao = new ConversaDao();
@@ -54,6 +55,7 @@ public class ConversaServlet extends HttpServlet {
 	}
 	
 	private void enviarMensagem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LoginServlet.estaLogado(request, response);
 		String mensagem = request.getParameter("mensagem");
 		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		

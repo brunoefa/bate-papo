@@ -56,12 +56,8 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-		String destino = "login.jsp";
-		if (usuario != null) {
-			destino = "logout.jsp";
-		}
-		RequestDispatcher rd = request.getRequestDispatcher(destino);
+		estaLogado(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("logout.jsp");
 		rd.forward(request, response);
 	}
 	
@@ -95,7 +91,7 @@ public class LoginServlet extends HttpServlet {
 			UsuarioDao dao = new UsuarioDao();
 			dao.salvar(usuario);
 			request.getSession().setAttribute("usuario", usuario);
-			destino = "conversa.jsp";
+			destino = "conversa";
 		} catch (SQLException e) {
 			request.setAttribute("mensagem", "Este usuário já está sendo utilizado!");
 			destino = "login.jsp";
@@ -121,6 +117,16 @@ public class LoginServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
+	
+	public static void estaLogado (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
+		if (usuario == null) {
+			request.getSession().invalidate();
+			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+	}
+	
 }
 
 

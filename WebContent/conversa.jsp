@@ -1,4 +1,6 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
     <jsp:include page="cabecalho.jsp" />
     
@@ -6,27 +8,21 @@
 
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron conversation">
-        <div class="alert alert-success" role="alert"><strong>João:</strong> Oi quer tc?</div><br />
-        <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
-        <div class="alert alert-warning" role="alert"><strong>Maria:</strong> kkkk</div><br />
-        <div class="alert alert-danger" role="alert"><strong>Fulano:</strong> Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo </div><br />
-        <div class="alert alert-success align-right" role="alert">Oi quer tc?</div><br />
-        <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
-        <div class="alert alert-warning" role="alert"><strong>Maria:</strong> kkkk</div><br />
-        <div class="alert alert-danger" role="alert"><strong>Fulano:</strong> Uma mensagem grande só pra testar a caixa de diálogo</div><br />
-        <div> <div class="alert alert-success align-right" role="alert">  só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo </div><br /></div>
-        <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
-        <div class="alert alert-success" role="alert"><strong>João:</strong> Oi quer tc?</div><br />
-        <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
-        <div class="alert alert-warning" role="alert"><strong>Maria:</strong> kkkk</div><br />
-        <div class="alert alert-danger" role="alert"><strong>Fulano:</strong> Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo </div><br />
-        <div class="alert alert-success align-right" role="alert">Oi quer tc?</div><br />
-        <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
-        <div class="alert alert-warning" role="alert"><strong>Maria:</strong> kkkk</div><br />
-        <div class="alert alert-danger" role="alert"><strong>Fulano:</strong> Uma mensagem grande só pra testar a caixa de diálogo</div><br />
-        <div> <div class="alert alert-success align-right" role="alert">  só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo Uma mensagem grande só pra testar a caixa de diálogo </div><br /></div>
-        <div class="alert alert-info" role="alert"><strong>José:</strong> Escreve direito porra!</div><br />
+       <c:forEach items="${listaConversa}" var="conversa">
+       		<div class="alert alert-danger" role="alert"><strong>${conversa.usuario}: </strong>${conversa.mensagem}</div><br />
+       </c:forEach>        
       </div>
+      
+      <%
+	      int i = 0;	
+	      for(i = 0; i<10; i++){
+      %>
+      		<div class="alert alert-danger" role="alert"><strong>${conversa.usuario}: </strong>${conversa.mensagem}</div><br />
+      <%
+      	   }
+      %>
+      
+      
       <div class="box-div">
         <form class="form-inline" action="conversa" method="post">
           <div class="form-group">
