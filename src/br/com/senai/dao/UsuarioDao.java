@@ -15,32 +15,19 @@ public class UsuarioDao {
 	}
 	
 	public void salvar(Usuario usuario) throws SQLException{
-		String sql = "insert into usuario (login) value (?)";
+		String sql = "insert into usuario (login, nome, senha, cor) value (?, ?, ?, ?)";
 		try {
 			PreparedStatement stm = connection.prepareStatement(sql);
 			stm.setString(1, usuario.getLogin());
+			stm.setString(2, usuario.getNome());
+			stm.setString(3, usuario.getSenha());
+			stm.setInt(4, usuario.getCor());
 			
 			stm.execute();
 			stm.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			throw e;
-		}
-	}
-	
-	public void cadastrar(Usuario usuario) {
-		String sql = "insert into cadastro (login, nome, senha) value (?, ?, ?)";
-		try {
-			PreparedStatement stm = connection.prepareStatement(sql);
-			stm.setString(1, usuario.getLogin());
-			stm.setString(2, usuario.getNome());
-			stm.setString(3, usuario.getSenha());
-			
-			stm.execute();
-			stm.close();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			throw new RuntimeException();
 		}
 	}
 
@@ -59,26 +46,56 @@ public class UsuarioDao {
 	}
 	
 	public Boolean existe(String login) {
-			Boolean resultado = false;
-			String sql = "select * from usuario where login = ?";
-			try {
-				PreparedStatement stm = connection.prepareStatement(sql);
-				stm.setString(1, login);
-				
-				ResultSet rs = stm.executeQuery();
+		Boolean resultado = false;
+		String sql = "select * from usuario where login = ?";
+		try {
+			PreparedStatement stm = connection.prepareStatement(sql);
+			stm.setString(1, login);
+			
+			ResultSet rs = stm.executeQuery();
 
-				while (rs.next()) {
-					resultado = true;
-				}
-				
-				rs.close();
-				stm.close();
-				
-				return resultado;
-				
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				throw new RuntimeException();
+			while (rs.next()) {
+				resultado = true;
 			}
+			
+			rs.close();
+			stm.close();
+			
+			return resultado;
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+		}
+	}
+	
+	
+	public Usuario buscar(String login) {
+		String sql = "select * from usuario where login = ?";
+		try {
+			PreparedStatement stm = connection.prepareStatement(sql);
+			stm.setString(1, login);
+			
+			ResultSet rs = stm.executeQuery();
+			
+			Usuario u = null;
+			while (rs.next()) {
+				u = new Usuario();
+				u.setId(rs.getInt("id"));
+				u.setNome(rs.getString("nome"));
+				u.setLogin(rs.getString("login"));
+				u.setSenha(rs.getString("senha"));
+				u.setCor(rs.getInt("cor"));
+			}
+			
+			rs.close();
+			stm.close();
+			
+			return u;
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			throw new RuntimeException();
+		}
 	}
 }

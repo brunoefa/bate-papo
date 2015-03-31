@@ -9,19 +9,14 @@
       <!-- Main component for a primary marketing message or call to action -->
       <div class="jumbotron conversation">
        <c:forEach items="${listaConversa}" var="conversa">
-       		<div class="alert alert-danger" role="alert"><strong>${conversa.usuario}: </strong>${conversa.mensagem}</div><br />
+       		<c:if test="${conversa.usuario eq usuario.login}">
+       			<div class="alert alert-logado align-right" role="alert">${conversa.mensagem}</div><br />
+       		</c:if>
+       		<c:if test="${conversa.usuario ne usuario.login}">
+       			<div class="alert alert-${usuario.cor}" role="alert"><strong>${conversa.usuario}: </strong>${conversa.mensagem}</div><br />
+       		</c:if>
        </c:forEach>        
       </div>
-      
-      <%
-	      int i = 0;	
-	      for(i = 0; i<10; i++){
-      %>
-      		<div class="alert alert-danger" role="alert"><strong>${conversa.usuario}: </strong>${conversa.mensagem}</div><br />
-      <%
-      	   }
-      %>
-      
       
       <div class="box-div">
         <form class="form-inline" action="conversa" method="post">

@@ -6,6 +6,7 @@ public class Usuario {
 	private String login;
 	private String nome;
 	private String senha;
+	private Integer cor;
 
 	public Integer getId() {
 		return id;
@@ -37,5 +38,13 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Integer getCor() {
+		return cor;
+	}
+
+	public void setCor(Integer cor) {
+		this.cor = cor;
 	}
 }

@@ -7,7 +7,8 @@
         <form class="form-signin" method="post" action="login">
           <label for="usuario" class="sr-only">Usuário</label>
           <input type="hidden" name="acao" value="login">
-          <input type="text" id="usuario" name="login" class="form-control" placeholder="Informe um usuário" required autofocus>
+          <input type="text" id="usuario" name="login" class="form-control" placeholder="Informe seu usuário" required autofocus>
+          <input type="password" id="senha" name="senha" class="form-control" placeholder="Informe sua senha" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar conversa</button>
           ${mensagem}
           <a href="cadastro.jsp" >Não possui login? Cadastre-se.</a>

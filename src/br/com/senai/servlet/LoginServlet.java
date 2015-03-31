@@ -44,59 +44,38 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	private void sair(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
-		
-		UsuarioDao dao = new UsuarioDao();
-		dao.deletar(usuario.getLogin());
-		
 		request.getSession().invalidate();
-		
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-		rd.forward(request, response);
+		index(request, response);
 	}
 
 	private void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		estaLogado(request, response);
-		RequestDispatcher rd = request.getRequestDispatcher("logout.jsp");
+		String destino;
+		if (estaLogado(request, response)) {
+			destino = "logout.jsp";
+		} else {
+			destino = "login.jsp";
+		}
+		RequestDispatcher rd = request.getRequestDispatcher(destino);
 		rd.forward(request, response);
 	}
 	
-//	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String login = request.getParameter("login");
-//		String destino;
-//		
-//		UsuarioDao dao = new UsuarioDao();
-//		if (dao.existe(login)) {
-//			request.setAttribute("mensagem", "Este usuário já está sendo utilizado!");
-//			destino = "login.jsp";
-//		} else {
-//			Usuario usuario = new Usuario();
-//			usuario.setLogin(login);
-//			dao.salvar(usuario);
-//			request.getSession().setAttribute("usuario", usuario);
-//			destino = "conversa.jsp";
-//		}
-//		
-//		RequestDispatcher rd = request.getRequestDispatcher(destino);
-//		rd.forward(request, response);
-//	}
-	
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
-		String destino;
+		String senha = request.getParameter("senha");
 
-		try {
-			Usuario usuario = new Usuario();
-			usuario.setLogin(login);
-			UsuarioDao dao = new UsuarioDao();
-			dao.salvar(usuario);
+		String destino = "";
+		
+		UsuarioDao dao = new UsuarioDao();
+		Usuario usuario = dao.buscar(login);
+		
+		if (usuario != null && usuario.getSenha().equals(senha)) {
 			request.getSession().setAttribute("usuario", usuario);
 			destino = "conversa";
-		} catch (SQLException e) {
-			request.setAttribute("mensagem", "Este usuário já está sendo utilizado!");
-			destino = "login.jsp";
+		}else {
+			request.setAttribute("mensagem", "Login ou senha inválida!");
+			index(request, response);
 		}
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher(destino);
 		rd.forward(request, response);
 	}
@@ -110,21 +89,41 @@ public class LoginServlet extends HttpServlet {
 		usuario.setLogin(login);
 		usuario.setNome(nome);
 		usuario.setSenha(senha);
+		usuario.setCor(geraCor(request, response));
 		
-		UsuarioDao dao = new UsuarioDao();
-		dao.cadastrar(usuario);
+		String destino = "";
+		try {
+			UsuarioDao dao = new UsuarioDao();
+			dao.salvar(usuario);
+			request.setAttribute("mensagem", "Cadastro realizado com sucesso! ;)");
+			index(request, response);
+		} catch (SQLException e) {
+			request.setAttribute("mensagem", "Este login já está sendo utilizado! :(");
+			destino = "cadastro.jsp";
+		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher(destino);
 		rd.forward(request, response);
 	}
 	
-	public static void estaLogado (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public static Boolean estaLogado (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		if (usuario == null) {
-			request.getSession().invalidate();
-			RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-			rd.forward(request, response);
+			return false;
+		}else {
+			return true;
 		}
+	}
+	
+	private int geraCor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Integer cor = (Integer)request.getServletContext().getAttribute("cor");
+		if (cor == null || cor == 9) {
+			cor = 0;
+		} else {
+			cor++;
+		}
+		request.getServletContext().setAttribute("cor", cor);
+		return cor;
 	}
 	
 }
